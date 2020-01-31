@@ -1,0 +1,98 @@
+[
+  {
+    "model": "contents.content",
+    "pk": 1,
+    "fields": {
+      "uuid": "1370cd16-43c3-11ea-810e-a86bad54c153",
+      "label": "label-1",
+      "text": "test-content-1",
+      "file": null,
+      "is_public": true,
+      "created_user": "3384bb3a-43c3-11ea-810e-a86bad54c153",
+      "created_time": "2019-11-01T04:46:34.950Z",
+      "modified_time": "2019-11-01T04:46:34.950Z"
+    }
+  },
+  {
+    "model": "contents.content",
+    "pk": 2,
+    "fields": {
+      "uuid": "5c12a9be-43c7-11ea-810e-a86bad54c153",
+      "label": "label-2",
+      "text": "test-content-2",
+      "file": null,
+      "is_public": false,
+      "read_grant": 1,
+      "write_grant": 2,
+      "created_user": "3384bb3a-43c3-11ea-810e-a86bad54c153",
+      "created_time": "2019-11-01T04:46:34.950Z",
+      "modified_time": "2019-11-01T04:46:34.950Z"
+    }
+  },
+  {
+    "model": "contents.content",
+    "pk": 3,
+    "fields": {
+      "uuid": "739bd520-43d5-11ea-810e-a86bad54c153",
+      "label": "label-3",
+      "text": "test-content-3",
+      "file": null,
+      "is_public": false,
+      "created_user": "3384bb3a-43c3-11ea-810e-a86bad54c153",
+      "created_time": "2019-11-01T04:46:34.950Z",
+      "modified_time": "2019-11-01T04:46:34.950Z"
+    }
+  },
+  {
+    "model": "contents.contentgrant",
+    "pk": 1,
+    "fields": {
+      "name": "default-read",
+      "created_user": "3384bb3a-43c3-11ea-810e-a86bad54c153",
+      "created_time": "2019-11-01T04:46:34.950Z",
+      "modified_time": "2019-11-01T04:46:34.950Z"
+    }
+  },
+  {
+    "model": "contents.contentgrant",
+    "pk": 2,
+    "fields": {
+      "name": "default-write",
+      "created_user": "3384bb3a-43c3-11ea-810e-a86bad54c153",
+      "created_time": "2019-11-01T04:46:34.950Z",
+      "modified_time": "2019-11-01T04:46:34.950Z"
+    }
+  },
+  {
+    "model": "contents.contentgrantuser",
+    "pk": 1,
+    "fields": {
+      "grant": 1,
+      "user": "1fad22e4-43d4-11ea-810e-a86bad54c153"
+    }
+  },
+  {
+    "model": "contents.contentgrantuser",
+    "pk": 2,
+    "fields": {
+      "grant": 2,
+      "user": "33878ba6-43d4-11ea-810e-a86bad54c153"
+    }
+  },
+  {
+    "model": "contents.contentgrantscope",
+    "pk": 1,
+    "fields": {
+      "grant": 1,
+      "scope": "cms"
+    }
+  },
+  {
+    "model": "contents.contentgrantscope",
+    "pk": 2,
+    "fields": {
+      "grant": 2,
+      "scope": "users.admin"
+    }
+  }
+]
