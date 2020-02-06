@@ -7,26 +7,25 @@ from ..filters import (
     UUIDListFilter,
 )
 from .models import (
-    Content,
+    Grant,
 )
 
 
-class ContentFilterSet(filterset.FilterSet):
-    label__contains = filters.CharFilter(
-        field_name='label',
-        lookup_expr='contains',
-    )
+class GrantFilterSet(filterset.FilterSet):
     uuid__in = UUIDListFilter(
         field_name='uuid',
         lookup_expr='in',
     )
+    name__contains = filters.CharFilter(
+        field_name='name',
+        lookup_expr='contains',
+    )
 
     class Meta:
-        model = Content
+        model = Grant
         fields = [
             'uuid',
             'uuid__in',
-            'label',
-            'label__contains',
-            'created_user',
+            'name',
+            'name__contains',
         ]

@@ -28,18 +28,18 @@ class Content(models.Model):
         default=False,
     )
     read_grant = models.ForeignKey(
-        'ContentGrant',
+        'grants.Grant',
         null=True,
         default=None,
-        related_name='read_content',
+        related_name='read_contents',
         on_delete=models.SET_NULL,
         db_constraint=False,
     )
     write_grant = models.ForeignKey(
-        'ContentGrant',
+        'grants.Grant',
         null=True,
         default=None,
-        related_name='write_content',
+        related_name='write_contents',
         on_delete=models.SET_NULL,
         db_constraint=False,
     )
@@ -50,54 +50,3 @@ class Content(models.Model):
     modified_time = models.DateTimeField(
         auto_now=True,
     )
-
-
-class ContentGrant(models.Model):
-    name = models.TextField(
-        blank=True,
-        default='',
-    )
-    created_user = models.UUIDField()
-    created_time = models.DateTimeField(
-        auto_now_add=True,
-    )
-    modified_time = models.DateTimeField(
-        auto_now=True,
-    )
-
-    class Meta:
-        unique_together = [
-            ('name', 'created_user')
-        ]
-
-
-class ContentGrantUser(models.Model):
-    grant = models.ForeignKey(
-        ContentGrant,
-        related_name='users',
-        on_delete=models.CASCADE,
-        db_constraint=False,
-    )
-    user = models.UUIDField()
-
-    class Meta:
-        unique_together = [
-            ('grant', 'user')
-        ]
-
-
-class ContentGrantScope(models.Model):
-    grant = models.ForeignKey(
-        ContentGrant,
-        related_name='scopes',
-        on_delete=models.CASCADE,
-        db_constraint=False,
-    )
-    scope = models.CharField(
-        max_length=32,
-    )
-
-    class Meta:
-        unique_together = [
-            ('grant', 'scope')
-        ]

@@ -1,12 +1,10 @@
 [
   {
-    "model": "contents.content",
+    "model": "layouts.layout",
     "pk": 1,
     "fields": {
-      "uuid": "1370cd16-43c3-11ea-810e-a86bad54c153",
-      "label": "label-1",
-      "text": "test-content-1",
-      "file": null,
+      "uuid": "cde619ee-4878-11ea-810e-a86bad54c153",
+      "name": "test-layout-1",
       "is_public": true,
       "created_user": "3384bb3a-43c3-11ea-810e-a86bad54c153",
       "created_time": "2019-11-01T04:46:34.950Z",
@@ -14,13 +12,11 @@
     }
   },
   {
-    "model": "contents.content",
+    "model": "layouts.layout",
     "pk": 2,
     "fields": {
-      "uuid": "5c12a9be-43c7-11ea-810e-a86bad54c153",
-      "label": "label-2",
-      "text": "test-content-2",
-      "file": null,
+      "uuid": "d9b6f770-4878-11ea-810e-a86bad54c153",
+      "name": "test-layout-2",
       "is_public": false,
       "read_grant": 1,
       "write_grant": 2,
@@ -30,13 +26,11 @@
     }
   },
   {
-    "model": "contents.content",
+    "model": "layouts.layout",
     "pk": 3,
     "fields": {
-      "uuid": "739bd520-43d5-11ea-810e-a86bad54c153",
-      "label": "label-3",
-      "text": "test-content-3",
-      "file": null,
+      "uuid": "e7d187f8-4878-11ea-810e-a86bad54c153",
+      "name": "test-layout-3",
       "is_public": false,
       "created_user": "3384bb3a-43c3-11ea-810e-a86bad54c153",
       "created_time": "2019-11-01T04:46:34.950Z",

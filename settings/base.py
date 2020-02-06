@@ -32,7 +32,9 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'rest_framework',
 
+    'apps.apps.AppConfig4Grants',
     'apps.apps.AppConfig4Contents',
+    'apps.apps.AppConfig4Layouts',
 ]
 
 MIDDLEWARE = [

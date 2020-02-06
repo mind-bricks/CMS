@@ -9,38 +9,37 @@ from rest_framework import (
 from ..mocks import AuthenticationMock
 
 
-class ContentTest(test.APITestCase):
+class LayoutTest(test.APITestCase):
     fixtures = [
         os.path.join('fixtures', 'test_grants.json'),
-        os.path.join('fixtures', 'test_contents.json'),
+        os.path.join('fixtures', 'test_layouts.json'),
     ]
 
-    def test_create_content(self):
-        url_list = reverse.reverse('contents:contents-list')
-        response = self.client.post(url_list, data={'text': 'test-content'})
+    def test_create_layout(self):
+        url_list = reverse.reverse('layouts:layouts-list')
+        response = self.client.post(url_list, data={'name': 'test-layout'})
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
         with AuthenticationMock('test-user') as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
             response = self.client.post(
-                url_list, data={'text': 'test-content'})
+                url_list, data={'name': 'test-layout'})
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
         with AuthenticationMock('test-user', user_scope=['cms']) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
             response = self.client.post(url_list, data={
-                'text': 'test-content-1',
+                'name': 'test-layout-1',
             })
             self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-            self.assertEqual(response.data.get('text'), 'test-content-1')
+            self.assertEqual(response.data.get('name'), 'test-layout-1')
             self.assertIn('read_grant', response.data)
             self.assertIn('write_grant', response.data)
-            self.assertIn('label', response.data)
 
             response = self.client.post(url_list, data={
-                'text': 'test-content-2',
+                'name': 'test-layout-2',
                 'read_grant': '10e7b066-4740-11ea-810e-a86bad54c153',
             })
             self.assertEqual(
@@ -54,19 +53,19 @@ class ContentTest(test.APITestCase):
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
             response = self.client.post(url_list, data={
-                'text': 'test-content-2',
+                'name': 'test-layout-2',
                 'read_grant': '10e7b066-4740-11ea-810e-a86bad54c153',
             })
             self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-            self.assertEqual(response.data.get('text'), 'test-content-2')
+            self.assertEqual(response.data.get('name'), 'test-layout-2')
             self.assertEqual(
                 str(response.data.get('read_grant')),
                 '10e7b066-4740-11ea-810e-a86bad54c153',
             )
 
-    def test_destroy_content(self):
-        url_detail = reverse.reverse('contents:contents-detail', [
-            '1370cd16-43c3-11ea-810e-a86bad54c153'
+    def test_destroy_layout(self):
+        url_detail = reverse.reverse('layouts:layouts-detail', [
+            'cde619ee-4878-11ea-810e-a86bad54c153'
         ])
         response = self.client.delete(url_detail)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
@@ -87,8 +86,8 @@ class ContentTest(test.APITestCase):
             response = self.client.delete(url_detail)
             self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-    def test_list_content(self):
-        url_list = reverse.reverse('contents:contents-list')
+    def test_list_layout(self):
+        url_list = reverse.reverse('layouts:layouts-list')
         response = self.client.get(url_list)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data.get('count'), 1)
@@ -105,24 +104,17 @@ class ContentTest(test.APITestCase):
             self.assertEqual(response.data.get('count'), 3)
 
             response = self.client.get(
-                url_list, QUERY_STRING='label__contains=1')
+                url_list, QUERY_STRING='parent__isnull=false')
             self.assertEqual(response.status_code, status.HTTP_200_OK)
-            self.assertEqual(response.data.get('count'), 1)
+            self.assertEqual(response.data.get('count'), 0)
 
-            response = self.client.get(
-                url_list,
-                QUERY_STRING='uuid=1370cd16-43c3-11ea-810e-a86bad54c153',
-            )
-            self.assertEqual(response.status_code, status.HTTP_200_OK)
-            self.assertEqual(response.data.get('count'), 1)
-
-            response = self.client.get(
-                url_list,
-                QUERY_STRING='uuid__in=1370cd16-43c3-11ea-810e-a86bad54c153 '
-                             '5c12a9be-43c7-11ea-810e-a86bad54c153',
-            )
-            self.assertEqual(response.status_code, status.HTTP_200_OK)
-            self.assertEqual(response.data.get('count'), 2)
+            # response = self.client.get(
+            #     url_list,
+            #     QUERY_STRING='uuid__in=cde619ee-4878-11ea-810e-a86bad54c153 '
+            #                  'd9b6f770-4878-11ea-810e-a86bad54c153',
+            # )
+            # self.assertEqual(response.status_code, status.HTTP_200_OK)
+            # self.assertEqual(response.data.get('count'), 2)
 
         with AuthenticationMock(
                 'test-user',
@@ -135,12 +127,12 @@ class ContentTest(test.APITestCase):
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             self.assertEqual(response.data.get('count'), 2)
 
-    def test_retrieve_content(self):
-        url_detail_1 = reverse.reverse('contents:contents-detail', [
-            '1370cd16-43c3-11ea-810e-a86bad54c153'
+    def test_retrieve_layout(self):
+        url_detail_1 = reverse.reverse('layouts:layouts-detail', [
+            'cde619ee-4878-11ea-810e-a86bad54c153'
         ])
-        url_detail_2 = reverse.reverse('contents:contents-detail', [
-            '5c12a9be-43c7-11ea-810e-a86bad54c153'
+        url_detail_2 = reverse.reverse('layouts:layouts-detail', [
+            'd9b6f770-4878-11ea-810e-a86bad54c153'
         ])
         response = self.client.get(url_detail_1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -159,12 +151,12 @@ class ContentTest(test.APITestCase):
             response = self.client.get(url_detail_2)
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_update_content(self):
-        url_detail_1 = reverse.reverse('contents:contents-detail', [
-            '1370cd16-43c3-11ea-810e-a86bad54c153'
+    def test_update_layout(self):
+        url_detail_1 = reverse.reverse('layouts:layouts-detail', [
+            'cde619ee-4878-11ea-810e-a86bad54c153'
         ])
-        url_detail_2 = reverse.reverse('contents:contents-detail', [
-            '5c12a9be-43c7-11ea-810e-a86bad54c153'
+        url_detail_2 = reverse.reverse('layouts:layouts-detail', [
+            'd9b6f770-4878-11ea-810e-a86bad54c153'
         ])
         response = self.client.patch(url_detail_1)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

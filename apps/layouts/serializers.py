@@ -5,11 +5,12 @@ from rest_framework import (
 )
 
 from .models import (
-    Content,
+    Layout,
+    LayoutElement,
 )
 
 
-class ContentSerializer(serializers.ModelSerializer):
+class LayoutSerializer(serializers.ModelSerializer):
     read_grant = serializers.SlugRelatedField(
         slug_field='uuid',
         queryset=apps.get_model('grants', 'Grant').objects.all(),
@@ -20,16 +21,21 @@ class ContentSerializer(serializers.ModelSerializer):
         queryset=apps.get_model('grants', 'Grant').objects.all(),
         required=False,
     )
+    parent = serializers.SlugRelatedField(
+        slug_field='uuid',
+        queryset=Layout.objects.all(),
+        required=False,
+        default=None,
+    )
 
     class Meta:
-        model = Content
+        model = Layout
         fields = [
             'uuid',
-            'label',
-            'text',
-            'file',
+            'name',
             'read_grant',
             'write_grant',
+            'parent',
             'created_user',
             'created_time',
             'modified_time',
@@ -43,12 +49,9 @@ class ContentSerializer(serializers.ModelSerializer):
 
     def save(self, **kwargs):
         instance = super().save(**kwargs)
-        if (
-                not instance.text and
-                not instance.file
-        ):
+        if instance.id == instance.parent:
             raise exceptions.ValidationError(
-                'either text or file should be specified'
+                'recursive reference'
             )
 
         if ((
@@ -65,3 +68,23 @@ class ContentSerializer(serializers.ModelSerializer):
             )
 
         return instance
+
+
+class LayoutElementSerializer(serializers.ModelSerializer):
+    content = serializers.SlugRelatedField(
+        slug_field='uuid',
+        queryset=apps.get_model('contents', 'Content').objects.all(),
+    )
+
+    class Meta:
+        model = LayoutElement
+        fields = [
+            'name',
+            'content',
+            'created_time',
+            'modified_time',
+        ]
+        read_only_fields = [
+            'created_time',
+            'modified_time',
+        ]

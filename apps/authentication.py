@@ -11,6 +11,93 @@ from rest_framework import status
 UMS_OAUTH2_SETTINGS = getattr(settings, 'UMS_OAUTH2', {})
 
 
+class AnonymousUser(object):
+    id = None
+    pk = id
+    username = ''
+    is_staff = False
+    is_active = False
+    is_superuser = False
+
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return 'AnonymousUser'
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __hash__(self):
+        return 1  # instances always return the same hash value
+
+    def get_username(self):
+        return self.username
+
+    @property
+    def is_anonymous(self):
+        return True
+
+    @property
+    def is_authenticated(self):
+        return False
+
+
+class AuthenticatedUser(object):
+    is_staff = False
+    is_active = True
+    is_superuser = False
+
+    def __init__(self, user):
+        self.user = user
+
+    def __str__(self):
+        return 'AuthenticatedUser'
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __hash__(self):
+        return self.pk
+
+    def get_username(self):
+        return self.user.get('username')
+
+    @property
+    def id(self):
+        return self.user.get('uuid')
+
+    @property
+    def pk(self):
+        return self.user.get('uuid')
+
+    @property
+    def is_anonymous(self):
+        return False
+
+    @property
+    def is_authenticated(self):
+        return True
+
+    @property
+    def scopes(self):
+        return self.user.get('scopes', [])
+
+    @property
+    def uuid(self):
+        return self.user.get('uuid')
+
+    @property
+    def username(self):
+        return self.user.get('username')
+
+
 class UMSOAuth2(object):
     oauth2_cache_prefix = UMS_OAUTH2_SETTINGS.get(
         'CACHE_PREFIX', 'oauth2')
