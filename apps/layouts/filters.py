@@ -5,12 +5,13 @@ from django_filters.rest_framework import (
 
 from .models import (
     Layout,
+    LayoutElement,
 )
 
 
 class LayoutFilterSet(filterset.FilterSet):
-    parent = filters.CharFilter(
-        field_name='parent__name',
+    parent = filters.UUIDFilter(
+        field_name='parent__uuid',
     )
     parent__isnull = filters.BooleanFilter(
         field_name='parent',
@@ -28,4 +29,18 @@ class LayoutFilterSet(filterset.FilterSet):
             'name__contains',
             'parent',
             'parent__isnull',
+        ]
+
+
+class LayoutElementFilterSet(filterset.FilterSet):
+    name__contains = filters.CharFilter(
+        field_name='name',
+        lookup_expr='contains',
+    )
+
+    class Meta:
+        model = LayoutElement
+        fields = [
+            'name',
+            'name__contains',
         ]

@@ -121,6 +121,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # Django Rest Framework
 REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'apps.exceptions.default_handler',
     'UNAUTHENTICATED_USER': 'apps.backends.AnonymousUser',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'apps.backends.SettingsAuthentication',

@@ -16,6 +16,7 @@ from ..permissions import (
 )
 from .filters import (
     LayoutFilterSet,
+    LayoutElementFilterSet,
 )
 from .models import (
     Layout,
@@ -72,6 +73,7 @@ class LayoutElementViewSet(
     mixins_ext.NestedViewSetMixin,
     viewsets.ModelViewSet,
 ):
+    filter_class = LayoutElementFilterSet
     lookup_field = 'uuid'
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = LayoutElement.objects.all()
