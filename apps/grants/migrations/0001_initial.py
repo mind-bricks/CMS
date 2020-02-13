@@ -19,7 +19,11 @@ class Migration(migrations.Migration):
                     auto_created=True, primary_key=True,
                     serialize=False, verbose_name='ID')),
                 ('uuid', models.UUIDField(default=uuid.uuid1, unique=True)),
-                ('name', models.TextField(blank=True, default='')),
+                ('name', models.CharField(
+                    max_length=64,
+                    blank=True,
+                    default=''
+                )),
                 ('created_user', models.UUIDField()),
                 ('created_time', models.DateTimeField(auto_now_add=True)),
                 ('modified_time', models.DateTimeField(auto_now=True)),

@@ -8,7 +8,8 @@ class Grant(models.Model):
         default=uuid1,
         unique=True,
     )
-    name = models.TextField(
+    name = models.CharField(
+        max_length=64,
         blank=True,
         default='',
     )
