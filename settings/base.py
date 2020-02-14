@@ -66,6 +66,9 @@ ROOT_URLCONF = 'apps.urls'
 WSGI_APPLICATION = 'settings.wsgi.application'
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(os.curdir, '.static')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(os.curdir, '.media')
 FILE_UPLOAD_PERMISSIONS = 0o644
 
 # Database

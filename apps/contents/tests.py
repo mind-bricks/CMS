@@ -39,6 +39,13 @@ class ContentTest(test.APITestCase):
             self.assertIn('write_grant', response.data)
             self.assertIn('label', response.data)
 
+            with open('README.md') as f:
+                response = self.client.post(url_list, data={
+                    'file': f,
+                })
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+            self.assertIn('file', response.data)
+
             response = self.client.post(url_list, data={
                 'text': 'test-content-2',
                 'read_grant': '10e7b066-4740-11ea-810e-a86bad54c153',

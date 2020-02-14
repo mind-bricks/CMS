@@ -53,6 +53,7 @@ coverage.xml
 # Django stuff:
 *.log
 .static_storage/
+.static/
 .media/
 local_settings.py
 
@@ -114,9 +115,7 @@ nohup.out
 *.sqllite
 
 # generated data
-.data/
 .logs/
-.static/
 env356
 
 settings/local.py
