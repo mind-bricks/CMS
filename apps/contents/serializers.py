@@ -28,6 +28,7 @@ class ContentSerializer(serializers.ModelSerializer):
             'label',
             'text',
             'file',
+            'is_public',
             'read_grant',
             'write_grant',
             'created_user',

@@ -16,7 +16,7 @@ class Layout(models.Model):
         null=True,
         default=None,
         related_name='children',
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,
         db_constraint=False,
     )
     is_public = models.BooleanField(

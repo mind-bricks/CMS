@@ -11,6 +11,12 @@ from .models import (
 
 
 class LayoutSerializer(serializers.ModelSerializer):
+    parent = serializers.SlugRelatedField(
+        slug_field='uuid',
+        queryset=Layout.objects.all(),
+        required=False,
+        default=None,
+    )
     read_grant = serializers.SlugRelatedField(
         slug_field='uuid',
         queryset=apps.get_model('grants', 'Grant').objects.all(),
@@ -21,21 +27,16 @@ class LayoutSerializer(serializers.ModelSerializer):
         queryset=apps.get_model('grants', 'Grant').objects.all(),
         required=False,
     )
-    parent = serializers.SlugRelatedField(
-        slug_field='uuid',
-        queryset=Layout.objects.all(),
-        required=False,
-        default=None,
-    )
 
     class Meta:
         model = Layout
         fields = [
             'uuid',
             'name',
+            'parent',
+            'is_public',
             'read_grant',
             'write_grant',
-            'parent',
             'created_user',
             'created_time',
             'modified_time',

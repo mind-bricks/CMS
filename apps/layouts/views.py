@@ -62,11 +62,15 @@ class LayoutViewSet(viewsets.ModelViewSet):
         ]
         return qs.filter(reduce(lambda x, y: x | y, qs_cond))
 
-    def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
-
     def perform_create(self, serializer):
         serializer.save(created_user=self.request.user.id)
+
+    def perform_destroy(self, instance):
+        try:
+            instance.delete()
+        except models.ProtectedError:
+            raise exceptions.NotAcceptable(
+                'layout children have to be deleted first')
 
 
 class LayoutElementViewSet(
