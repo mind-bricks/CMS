@@ -148,3 +148,9 @@ REST_FRAMEWORK = {
         'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 100,
 }
+
+# Swagger
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+    'SECURITY_DEFINITIONS': {},
+}
