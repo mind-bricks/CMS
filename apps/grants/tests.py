@@ -29,7 +29,7 @@ class GrantTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
@@ -46,7 +46,7 @@ class GrantTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
@@ -61,7 +61,7 @@ class GrantTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
@@ -84,7 +84,7 @@ class GrantTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
@@ -101,7 +101,7 @@ class GrantTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
@@ -119,7 +119,7 @@ class GrantTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
@@ -138,7 +138,7 @@ class GrantTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
@@ -157,7 +157,7 @@ class GrantTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
@@ -174,7 +174,7 @@ class GrantTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
@@ -192,7 +192,7 @@ class GrantTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
@@ -210,7 +210,7 @@ class GrantTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))

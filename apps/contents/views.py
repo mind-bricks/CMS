@@ -28,7 +28,7 @@ class ContentViewSet(viewsets.ModelViewSet):
         'read_grant',
         'write_grant',
     ).all()
-    required_scopes = ['cms']
+    required_scopes = ['cms.users']
     serializer_class = ContentSerializer
 
     def get_queryset(self):

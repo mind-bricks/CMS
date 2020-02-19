@@ -37,7 +37,7 @@ class LayoutViewSet(viewsets.ModelViewSet):
         'read_grant',
         'write_grant',
     ).all()
-    required_scopes = ['cms']
+    required_scopes = ['cms.users']
     serializer_class = LayoutSerializer
 
     def get_queryset(self):
@@ -81,7 +81,7 @@ class LayoutElementViewSet(
     lookup_field = 'uuid'
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = LayoutElement.objects.all()
-    required_scopes = ['cms']
+    required_scopes = ['cms.users']
     serializer_class = LayoutElementSerializer
 
     def get_queryset(self):

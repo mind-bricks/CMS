@@ -31,7 +31,7 @@ class GrantViewSet(viewsets.ModelViewSet):
     lookup_field = 'uuid'
     permission_classes = [UserHasScope]
     queryset = Grant.objects.all()
-    required_scopes = ['cms']
+    required_scopes = ['cms.users']
     serializer_class = GrantSerializer
 
     def get_queryset(self):
@@ -52,7 +52,7 @@ class GrantUserViewSet(
     lookup_field = 'user'
     permission_classes = [UserHasScope]
     queryset = GrantUser.objects.all()
-    required_scopes = ['cms']
+    required_scopes = ['cms.users']
     serializer_class = GrantUserSerializer
 
     def perform_create(self, serializer):
@@ -79,7 +79,7 @@ class GrantScopeViewSet(
     lookup_value_regex = '[^/]+'
     permission_classes = [UserHasScope]
     queryset = GrantScope.objects.all()
-    required_scopes = ['cms']
+    required_scopes = ['cms.users']
     serializer_class = GrantScopeSerializer
 
     def perform_create(self, serializer):

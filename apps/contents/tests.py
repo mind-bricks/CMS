@@ -27,7 +27,7 @@ class ContentTest(test.APITestCase):
                 url_list, data={'text': 'test-content'})
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-        with AuthenticationMock('test-user', user_scope=['cms']) as m:
+        with AuthenticationMock('test-user', user_scope=['cms.users']) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
             response = self.client.post(url_list, data={
@@ -56,7 +56,7 @@ class ContentTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
@@ -78,7 +78,7 @@ class ContentTest(test.APITestCase):
         response = self.client.delete(url_detail)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-        with AuthenticationMock('test-user', user_scope=['cms']) as m:
+        with AuthenticationMock('test-user', user_scope=['cms.users']) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
             response = self.client.delete(url_detail)
@@ -87,7 +87,7 @@ class ContentTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
@@ -103,7 +103,7 @@ class ContentTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
@@ -134,7 +134,7 @@ class ContentTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='1fad22e4-43d4-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
@@ -157,7 +157,7 @@ class ContentTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
@@ -176,7 +176,7 @@ class ContentTest(test.APITestCase):
         response = self.client.patch(url_detail_1)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-        with AuthenticationMock('test-user', user_scope=['cms']) as m:
+        with AuthenticationMock('test-user', user_scope=['cms.users']) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
             response = self.client.patch(url_detail_1, data={'text': 'tmp'})
@@ -185,7 +185,7 @@ class ContentTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
@@ -195,7 +195,7 @@ class ContentTest(test.APITestCase):
         with AuthenticationMock(
                 'test-user',
                 user_uuid='33878ba6-43d4-11ea-810e-a86bad54c153',
-                user_scope=['cms'],
+                user_scope=['cms.users'],
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
