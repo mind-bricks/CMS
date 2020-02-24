@@ -80,8 +80,7 @@ class LayoutElementViewSet(
     filter_class = LayoutElementFilterSet
     lookup_field = 'uuid'
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = LayoutElement.objects.all()
-    required_scopes = ['cms.users']
+    queryset = LayoutElement.objects.select_related('content').all()
     serializer_class = LayoutElementSerializer
 
     def get_queryset(self):
@@ -104,6 +103,7 @@ class LayoutElementViewSet(
             models.Q(**{k: v})
             for k, v in qs_cond.items() if v is not None
         ]
+
         return qs.filter(reduce(lambda x, y: x | y, qs_cond))
 
     def perform_create(self, serializer):
@@ -115,6 +115,10 @@ class LayoutElementViewSet(
             write_grant__users__user=uuid,
             write_grant__scopes__scope__in=scopes,
         )
+        qs_cond = [
+            models.Q(**{k: v})
+            for k, v in qs_cond.items() if v is not None
+        ]
         layout = Layout.objects.filter(
             reduce(lambda x, y: x | y, qs_cond) &
             models.Q(uuid=self.kwargs['parent_lookup_layout__uuid'])
@@ -123,4 +127,7 @@ class LayoutElementViewSet(
             raise exceptions.PermissionDenied(
                 'can not write to layout')
 
-        serializer.save(layout=layout, created_user=uuid)
+        serializer.save(
+            layout=layout,
+            # created_user=uuid,
+        )

@@ -36,5 +36,16 @@
       "created_time": "2019-11-01T04:46:34.950Z",
       "modified_time": "2019-11-01T04:46:34.950Z"
     }
+  },
+  {
+    "model": "layouts.layoutelement",
+    "pk": 1,
+    "fields": {
+      "layout": 2,
+      "name": "test-layout-2-element-1",
+      "content": 1,
+      "created_time": "2019-11-01T04:46:34.950Z",
+      "modified_time": "2019-11-01T04:46:34.950Z"
+    }
   }
 ]

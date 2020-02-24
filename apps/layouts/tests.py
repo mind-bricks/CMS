@@ -186,3 +186,86 @@ class LayoutTest(test.APITestCase):
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
             response = self.client.patch(url_detail_2, data={'text': 'tmp'})
             self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class LayoutElementTest(test.APITestCase):
+    fixtures = [
+        os.path.join('fixtures', 'test_contents.json'),
+        os.path.join('fixtures', 'test_layouts.json'),
+        os.path.join('fixtures', 'test_grants.json'),
+    ]
+
+    def test_list_element(self):
+        url_list = reverse.reverse(
+            'layouts:layout-elements-list',
+            ['cde619ee-4878-11ea-810e-a86bad54c153'],
+        )
+        response = self.client.get(url_list)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data.get('count'), 0)
+
+        url_list = reverse.reverse(
+            'layouts:layout-elements-list',
+            ['d9b6f770-4878-11ea-810e-a86bad54c153'],
+        )
+        response = self.client.get(url_list)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data.get('count'), 0)
+
+        with AuthenticationMock(
+                'test-user',
+                user_uuid='33878ba6-43d4-11ea-810e-a86bad54c153',
+        ) as m:
+            self.client.credentials(
+                HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
+            response = self.client.get(url_list)
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(response.data.get('count'), 1)
+
+    def test_create_element(self):
+        url_list = reverse.reverse(
+            'layouts:layout-elements-list',
+            ['cde619ee-4878-11ea-810e-a86bad54c153'],
+        )
+        response = self.client.post(url_list, data={
+            'name': 'test-element',
+            'content': '1370cd16-43c3-11ea-810e-a86bad54c153'
+        })
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        with AuthenticationMock(
+                'test-user',
+                user_uuid='33878ba6-43d4-11ea-810e-a86bad54c153',
+        ) as m:
+            self.client.credentials(
+                HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
+            response = self.client.post(url_list, data={
+                'name': 'test-element',
+                'content': '1370cd16-43c3-11ea-810e-a86bad54c153'
+            })
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        with AuthenticationMock(
+                'test-user',
+                user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
+        ) as m:
+            self.client.credentials(
+                HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
+            response = self.client.post(url_list, data={
+                'name': 'test-element',
+                'content': '1370cd16-43c3-11ea-810e-a86bad54c153'
+            })
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+            self.assertEqual(
+                str(response.data.get('content')),
+                '1370cd16-43c3-11ea-810e-a86bad54c153',
+            )
+
+    def test_destroy_element(self):
+        pass
+
+    def test_update_element(self):
+        pass
+
+    def test_retrieve_element(self):
+        pass
