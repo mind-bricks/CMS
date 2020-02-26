@@ -235,7 +235,6 @@ class LayoutElementTest(test.APITestCase):
 
         with AuthenticationMock(
                 'test-user',
-                user_uuid='33878ba6-43d4-11ea-810e-a86bad54c153',
         ) as m:
             self.client.credentials(
                 HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
@@ -262,7 +261,32 @@ class LayoutElementTest(test.APITestCase):
             )
 
     def test_destroy_element(self):
-        pass
+        url_detail = reverse.reverse(
+            'layouts:layout-elements-detail',
+            [
+                'd9b6f770-4878-11ea-810e-a86bad54c153',
+                'test-layout-2-element-1',
+            ],
+        )
+        response = self.client.delete(url_detail)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        with AuthenticationMock(
+                'test-user',
+        ) as m:
+            self.client.credentials(
+                HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
+            response = self.client.delete(url_detail)
+            self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        with AuthenticationMock(
+                'test-user',
+                user_uuid='3384bb3a-43c3-11ea-810e-a86bad54c153',
+        ) as m:
+            self.client.credentials(
+                HTTP_AUTHORIZATION='Bearer {}'.format(m.access_token))
+            response = self.client.delete(url_detail)
+            self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_update_element(self):
         pass

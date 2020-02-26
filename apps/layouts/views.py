@@ -78,7 +78,7 @@ class LayoutElementViewSet(
     viewsets.ModelViewSet,
 ):
     filter_class = LayoutElementFilterSet
-    lookup_field = 'uuid'
+    lookup_field = 'name'
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = LayoutElement.objects.select_related('content').all()
     serializer_class = LayoutElementSerializer
